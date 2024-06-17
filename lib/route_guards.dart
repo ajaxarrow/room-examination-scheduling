@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:roomexaminationschedulingsystem/model/mixins/app_user.dart';
+import 'package:roomexaminationschedulingsystem/model/app_user.dart';
 
 Future<void> isRoleCorrect (String role, BuildContext context) async {
   final currentRole = await AppUser().getUserRoleById(FirebaseAuth.instance.currentUser!.uid!);

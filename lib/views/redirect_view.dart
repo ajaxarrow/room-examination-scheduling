@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:roomexaminationschedulingsystem/model/mixins/app_user.dart';
+import 'package:roomexaminationschedulingsystem/model/app_user.dart';
 import 'package:roomexaminationschedulingsystem/views/faculty/faculty_main_view.dart';
 import 'package:roomexaminationschedulingsystem/views/registrar/registrar_main_view.dart';
 import 'admin/admin_main_view.dart';

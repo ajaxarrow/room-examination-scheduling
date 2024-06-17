@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:roomexaminationschedulingsystem/widgets/users/user_item.dart';
-import '../../model/mixins/app_user.dart';
+import '../../model/app_user.dart';
 
 
 class UserList extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../layout/main_layout.dart';
-import '../../model/mixins/app_user.dart';
+import '../../model/app_user.dart';
 import '../../route_guards.dart';
 import '../../widgets/users/user_dialog_form.dart';
 import '../../widgets/users/user_list.dart';

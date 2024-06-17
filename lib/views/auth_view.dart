@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:roomexaminationschedulingsystem/model/mixins/app_user.dart';
+import 'package:roomexaminationschedulingsystem/model/app_user.dart';
 import 'package:roomexaminationschedulingsystem/route_guards.dart';
 import 'package:roomexaminationschedulingsystem/themes/colors.dart';
 import '../widgets/custom_radio_button_widget.dart';

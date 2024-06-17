@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../layout/main_layout.dart';
-import '../../model/mixins/academic_year.dart';
+import '../../model/academic_year.dart';
 import '../../route_guards.dart';
 import '../../widgets/academicyears/academic_year_dialog_form.dart';
 import '../../widgets/academicyears/academic_year_list.dart';

@@ -1,43 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:roomexaminationschedulingsystem/model/academic_year.dart';
+import 'package:roomexaminationschedulingsystem/model/room.dart';
 
 enum Mode{update, create}
 
-class AcademicYearDialogForm extends StatefulWidget {
-  const AcademicYearDialogForm({
+class RoomDialogForm extends StatefulWidget {
+  const RoomDialogForm({
     super.key,
-    this.academicYear,
-    this.mode,
-    this.onAddAcademicYear,
-    this.onUpdateAcademicYear
+    required this.mode,
+    required this.onRefresh,
+    this.room,
   });
 
-  final void Function()? onAddAcademicYear;
-  final void Function()? onUpdateAcademicYear;
-  final Mode? mode;
-  final AcademicYear? academicYear;
+  final void Function() onRefresh;
+  final Mode mode;
+  final Room? room;
 
   @override
-  State<AcademicYearDialogForm> createState() => _AcademicYearDialogFormState();
+  State<RoomDialogForm> createState() => _RoomDialogFormState();
 }
 
-class _AcademicYearDialogFormState extends State<AcademicYearDialogForm> {
+class _RoomDialogFormState extends State<RoomDialogForm> {
   final _form = GlobalKey<FormState>();
-  final yearStartController = TextEditingController();
-  final yearEndController = TextEditingController();
-  String selectedSemester = '1st Semester';
-  bool isDefault = false;
+  final nameController = TextEditingController();
+  String selectedType = 'Lecture Room';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(widget.academicYear != null){
-      yearStartController.text = widget.academicYear!.yearStart!;
-      yearEndController.text = widget.academicYear!.yearEnd!;
+    if(widget.room != null){
+      nameController.text = widget.room!.name!;
       setState(() {
-        isDefault = widget.academicYear!.isDefault!;
-        selectedSemester = widget.academicYear!.semester!;
+        selectedType = widget.room!.type!;
       });
     }
   }
@@ -46,29 +40,29 @@ class _AcademicYearDialogFormState extends State<AcademicYearDialogForm> {
   @override
   Widget build(BuildContext context) {
 
-    void addAcademicYear(AcademicYear academicYear) async{
-      await academicYear.addAcademicYear();
-      widget.onAddAcademicYear!();
+    void addRoom(Room room) async{
+      await room.addRoom();
+      widget.onRefresh();
       Navigator.pop(context);
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 2),
-        content: Text("Academic Year Added!"),
+        content: Text("Room Added!"),
       ));
     }
 
-    void updateAcademicYear(AcademicYear academicYear) async{
-      await academicYear.updateAcademicYear();
-      widget.onUpdateAcademicYear!();
+    void updateRoom(Room room) async{
+      await room.updateRoom();
+      widget.onRefresh();
       Navigator.pop(context);
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         duration: Duration(seconds: 2),
-        content: Text("Academic Year Updated!"),
+        content: Text("Room Updated!"),
       ));
     }
 
-    void submitActivity() async {
+    void submitRoom() async {
       final isValid = _form.currentState!.validate();
       if (!isValid) {
         return;
@@ -76,21 +70,17 @@ class _AcademicYearDialogFormState extends State<AcademicYearDialogForm> {
       _form.currentState!.save();
 
       if (widget.mode == Mode.create){
-        addAcademicYear(AcademicYear(
+        addRoom(Room(
           context: context,
-          yearStart: yearStartController.text,
-          yearEnd: yearEndController.text,
-          isDefault: isDefault,
-          semester: selectedSemester,
+          type: selectedType,
+          name: nameController.text
         ));
       } else {
-        updateAcademicYear(AcademicYear(
+        updateRoom(Room(
           context: context,
-          yearStart: yearStartController.text,
-          yearEnd: yearEndController.text,
-          isDefault: isDefault,
-          id: widget.academicYear!.id!,
-          semester: selectedSemester,
+          type: selectedType,
+          name: nameController.text,
+          id: widget.room!.id!
         ));
       }
     }
@@ -108,8 +98,8 @@ class _AcademicYearDialogFormState extends State<AcademicYearDialogForm> {
                 children: [
                   Text(
                     widget.mode == Mode.create
-                        ? 'Add Academic Year'
-                        : 'Update Academic Year',
+                        ? 'Add Room'
+                        : 'Update Room',
                     style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 18
@@ -124,81 +114,49 @@ class _AcademicYearDialogFormState extends State<AcademicYearDialogForm> {
                 ],
               ),
               const SizedBox(height: 25),
-              const Text('Year Start:', style: TextStyle(fontWeight: FontWeight.w500)),
+              const Text('Room Name:', style: TextStyle(fontWeight: FontWeight.w500)),
               const SizedBox(height: 8),
               TextFormField(
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Year start must not be empty';
-                  } else if (int.tryParse(value) == null) {
-                    return 'Please enter a valid number';
+                    return 'Room Name start must not be empty';
                   }
                   return null;
                 },
-                controller: yearStartController,
-                keyboardType: TextInputType.number,
+                controller: nameController,
                 decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.title),
-                    hintText: 'Enter Year Start'
+                    hintText: 'Enter Room Name'
                 ),
               ),
               const SizedBox(height: 25),
-              const Text('Year End:', style: TextStyle(fontWeight: FontWeight.w500)),
-              const SizedBox(height: 8),
-              TextFormField(
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'Year end must not be empty';
-                  } else if (int.tryParse(value) == null) {
-                    return 'Please enter a valid number';
-                  }
-                  return null;
-                },
-                controller: yearEndController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.comment),
-                    hintText: 'Enter End Year'
-                ),
-              ),
-              const SizedBox(height: 25),
-              const Text('Semester:', style: TextStyle(fontWeight: FontWeight.w500)),
+              const Text('Room Type:', style: TextStyle(fontWeight: FontWeight.w500)),
               const SizedBox(height: 8),
               DropdownButton(
-                  value: selectedSemester,
+                  value: selectedType,
                   items: const [
                     DropdownMenuItem(
-                        value: '1st Semester',
-                        child: Text('1st Semester')
+                        value: 'Lecture Room',
+                        child: Text('Lecture Room')
                     ),
                     DropdownMenuItem(
-                        value: '2nd Semester',
-                        child: Text('2nd Semester')
+                        value: 'Laboratory',
+                        child: Text('Laboratory')
                     ),
                     DropdownMenuItem(
-                        value: 'Midyear',
-                        child: Text('Midyear')
+                        value: 'Office',
+                        child: Text('Office')
+                    ),
+                    DropdownMenuItem(
+                        value: 'Others',
+                        child: Text('Others')
                     )
                   ],
                   onChanged: (value){
                     setState(() {
-                      selectedSemester = value!;
+                      selectedType = value!;
                     });
                   }
-              ),
-              const SizedBox(height: 25),
-              Row(
-                children: [
-                  Switch(
-                    value: isDefault,
-                    onChanged: (value){
-                      setState(() {
-                        isDefault = value;
-                      });
-                    }
-                  ),
-                  Text(isDefault ? 'Default Academic Year' : 'Not Default Academic Year'),
-                ],
               ),
               const SizedBox(height: 25),
               Row(
@@ -227,7 +185,7 @@ class _AcademicYearDialogFormState extends State<AcademicYearDialogForm> {
                         style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 19)
                         ),
-                        onPressed: submitActivity,
+                        onPressed: submitRoom,
                         child: const Text(
                             'Save',
                             style: TextStyle(

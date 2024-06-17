@@ -2,7 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:roomexaminationschedulingsystem/model/mixins/app_user.dart';
+import 'package:roomexaminationschedulingsystem/model/app_user.dart';
 
 import '../themes/colors.dart';
 

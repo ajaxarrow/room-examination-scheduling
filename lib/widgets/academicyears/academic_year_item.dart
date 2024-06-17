@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:roomexaminationschedulingsystem/model/mixins/academic_year.dart';
+import 'package:roomexaminationschedulingsystem/model/academic_year.dart';
 
 import 'academic_year_dialog_form.dart';
 

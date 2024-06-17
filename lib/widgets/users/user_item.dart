@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:roomexaminationschedulingsystem/model/mixins/app_user.dart';
+import 'package:roomexaminationschedulingsystem/model/app_user.dart';
 import 'package:roomexaminationschedulingsystem/widgets/users/user_dialog_form.dart';
 
 class UserItem extends StatefulWidget {
