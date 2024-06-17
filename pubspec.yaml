@@ -38,6 +38,9 @@ dependencies:
   firebase_core: ^3.1.0
   firebase_auth: ^5.1.0
   cloud_firestore: ^5.0.1
+  intl: ^0.19.0
+  phosphor_flutter: ^2.1.0
+  syncfusion_flutter_calendar: ^26.1.35
 
 dev_dependencies:
   flutter_test:
@@ -95,8 +98,6 @@ flutter:
       fonts:
         - asset: lib/assets/fonts/Supreme-Regular.ttf
           weight: 400
-        - asset: lib/assets/fonts/Supreme-Black.ttf
-          weight: 900
         - asset: lib/assets/fonts/Supreme-Bold.ttf
           weight: 700
         - asset: lib/assets/fonts/Supreme-Medium.ttf
