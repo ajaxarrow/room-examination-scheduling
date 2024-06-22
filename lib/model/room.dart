@@ -74,5 +74,17 @@ class Room with DisplayMixin{
     return result;
   }
 
+  Future<Room> getRoomByID(String id) async {
+    DocumentSnapshot docSnapshot = await rooms.doc(id).get();
+    if (docSnapshot.exists) {
+      Room room = Room.fromMap(docSnapshot.data() as Map<String, dynamic>, docSnapshot.id);
+      return room;
+    } else {
+      // Handle the case where the document does not exist
+      throw Exception('Room with ID $id not found');
+    }
+  }
+
+
 
 }

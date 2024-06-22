@@ -28,7 +28,7 @@ class AppUser with DisplayMixin{
 
   factory AppUser.fromMap(Map<String, dynamic> data, id) {
     return AppUser(
-      uid: id,
+      uid: data['id'],
       name: data['name'],
       email: data['email'],
       password: data['password'],
@@ -109,10 +109,23 @@ class AppUser with DisplayMixin{
     QuerySnapshot querySnapshot =  await users
         .where('id', isEqualTo: id)
         .get();
-
     final result = querySnapshot.docs.map((doc) =>
         AppUser.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
     return result[0];
+  }
+
+  Future<AppUser> getUserbyIDv2(String id) async {
+    DocumentSnapshot docSnapshot = await users.doc(id).get();
+
+    // Check if the document exists
+    if (docSnapshot.exists) {
+      // Convert the document data to an AppUser object
+      AppUser user = AppUser.fromMap(docSnapshot.data() as Map<String, dynamic>, docSnapshot.id);
+      return user;
+    } else {
+      // Handle the case where the document does not exist
+      throw Exception('User with ID $id not found');
+    }
   }
 
   Future<String> getUserRoleById(String id) async {
@@ -160,7 +173,15 @@ class AppUser with DisplayMixin{
 
   Future<List<AppUser>> getUsers() async {
     QuerySnapshot querySnapshot = await users
-        .where('role', whereIn: ['faculty', 'registrar', 'student'])
+        .where('role', whereIn: ['faculty', 'registrar'])
+        .get();
+    final allUsers = querySnapshot.docs.map((doc) => AppUser.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
+    return allUsers;
+  }
+
+  Future<List<AppUser>> getUsersbyRole(String role) async {
+    QuerySnapshot querySnapshot = await users
+        .where('role', isEqualTo: role)
         .get();
     final allUsers = querySnapshot.docs.map((doc) => AppUser.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
     return allUsers;

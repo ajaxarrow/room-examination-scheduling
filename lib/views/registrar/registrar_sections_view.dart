@@ -4,7 +4,7 @@ import 'package:roomexaminationschedulingsystem/model/section.dart';
 import 'package:roomexaminationschedulingsystem/route_guards.dart';
 import 'package:roomexaminationschedulingsystem/widgets/sections/section_dialog_form.dart';
 import 'package:roomexaminationschedulingsystem/widgets/sections/section_list.dart';
-
+import 'package:roomexaminationschedulingsystem/enums/roles.enum.dart';
 class RegistrarSectionsView extends StatefulWidget {
   const RegistrarSectionsView({super.key});
 

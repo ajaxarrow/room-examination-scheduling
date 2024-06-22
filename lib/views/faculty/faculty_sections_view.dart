@@ -4,6 +4,7 @@ import 'package:roomexaminationschedulingsystem/model/section.dart';
 import 'package:roomexaminationschedulingsystem/route_guards.dart';
 import 'package:roomexaminationschedulingsystem/widgets/sections/section_dialog_form.dart';
 import 'package:roomexaminationschedulingsystem/widgets/sections/section_list.dart';
+import 'package:roomexaminationschedulingsystem/enums/roles.enum.dart';
 
 class FacultySectionsView extends StatefulWidget {
   const FacultySectionsView({super.key});
@@ -191,7 +192,7 @@ class _FacultySectionsViewState extends State<FacultySectionsView> {
           return MainLayout(
             role: Role.faculty,
             title: 'Sections',
-            index: 2,
+            index: 1,
             content: SizedBox(
               width: double.infinity,
               height: double.infinity,

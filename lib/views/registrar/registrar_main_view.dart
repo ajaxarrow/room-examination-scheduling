@@ -4,7 +4,7 @@ import '../../model/academic_year.dart';
 import '../../route_guards.dart';
 import '../../widgets/academicyears/academic_year_dialog_form.dart';
 import '../../widgets/academicyears/academic_year_list.dart';
-
+import 'package:roomexaminationschedulingsystem/enums/roles.enum.dart';
 
 class RegistrarMainView extends StatefulWidget {
   const RegistrarMainView({super.key});

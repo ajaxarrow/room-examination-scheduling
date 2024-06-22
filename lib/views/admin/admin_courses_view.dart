@@ -4,6 +4,7 @@ import '../../model/course.dart';
 import '../../route_guards.dart';
 import '../../widgets/courses/course_dialog_form.dart';
 import '../../widgets/courses/course_list.dart';
+import 'package:roomexaminationschedulingsystem/enums/roles.enum.dart';
 
 class AdminCoursesView extends StatefulWidget {
   const AdminCoursesView({super.key});

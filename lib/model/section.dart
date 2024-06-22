@@ -79,6 +79,18 @@ class Section with DisplayMixin{
     return result;
   }
 
+  Future<Section> getSectionById(String id) async {
+    DocumentSnapshot docSnapshot = await sections.doc(id).get();
+    if (docSnapshot.exists) {
+      Section section = Section.fromMap(docSnapshot.data() as Map<String, dynamic>, docSnapshot.id);
+      return section;
+    } else {
+      // Handle the case where the document does not exist
+      throw Exception('Section with ID $id not found');
+    }
+  }
+
+
   Future<List<Section>> getSectionsByCollege(String college) async{
     if(college == 'All'){
       QuerySnapshot querySnapshot = await sections.get();

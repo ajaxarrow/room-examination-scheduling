@@ -75,5 +75,16 @@ class Course with DisplayMixin{
     return result;
   }
 
+  Future<Course> getCourseByID(String id) async {
+    DocumentSnapshot docSnapshot = await courses.doc(id).get();
+    if (docSnapshot.exists) {
+      Course course = Course.fromMap(docSnapshot.data() as Map<String, dynamic>, docSnapshot.id);
+      return course;
+    } else {
+      throw Exception('Course with ID $id not found');
+    }
+  }
+
+
 
 }

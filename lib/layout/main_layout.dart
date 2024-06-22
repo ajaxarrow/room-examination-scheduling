@@ -2,11 +2,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:roomexaminationschedulingsystem/enums/roles.enum.dart';
 import 'package:roomexaminationschedulingsystem/model/app_user.dart';
 
 import '../themes/colors.dart';
 
-enum Role{faculty, registrar, admin}
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key, required this.index, required this.content, required this.title, required this.role});
