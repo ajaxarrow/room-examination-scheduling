@@ -32,6 +32,11 @@ class _MainLayoutState extends State<MainLayout> {
           label: 'Exam Schedule',
         ),
         const BottomNavigationBarItem(
+          icon: PhosphorIcon(PhosphorIconsRegular.student),
+          activeIcon: PhosphorIcon(PhosphorIconsFill.student),
+          label: 'Sections',
+        ),
+        const BottomNavigationBarItem(
           icon: PhosphorIcon(PhosphorIconsRegular.signOut), // Logout icon
           label: 'Logout',
         ),
@@ -57,6 +62,11 @@ class _MainLayoutState extends State<MainLayout> {
           icon: PhosphorIcon(PhosphorIconsRegular.chalkboard),
           activeIcon: PhosphorIcon(PhosphorIconsFill.chalkboard),
           label: 'Courses',
+        ),
+        const BottomNavigationBarItem(
+          icon: PhosphorIcon(PhosphorIconsRegular.student),
+          activeIcon: PhosphorIcon(PhosphorIconsFill.student),
+          label: 'Sections',
         ),
         const BottomNavigationBarItem(
           icon: PhosphorIcon(PhosphorIconsRegular.signOut), // Logout icon
@@ -91,6 +101,11 @@ class _MainLayoutState extends State<MainLayout> {
           label: 'Courses',
         ),
         const BottomNavigationBarItem(
+          icon: PhosphorIcon(PhosphorIconsRegular.student),
+          activeIcon: PhosphorIcon(PhosphorIconsFill.student),
+          label: 'Sections',
+        ),
+        const BottomNavigationBarItem(
           icon: PhosphorIcon(PhosphorIconsRegular.signOut), // Logout icon
           label: 'Logout',
         ),
@@ -103,6 +118,7 @@ class _MainLayoutState extends State<MainLayout> {
     if (widget.role == Role.faculty) {
       return [
         '/faculty/main',
+        '/faculty/sections',
         '/logout',
       ];
     } else if (widget.role == Role.registrar) {
@@ -111,6 +127,7 @@ class _MainLayoutState extends State<MainLayout> {
         '/registrar/schedule',
         '/registrar/rooms',
         '/registrar/courses',
+        '/registrar/sections',
         '/logout',
       ];
     } else if (widget.role == Role.admin) {
@@ -120,6 +137,7 @@ class _MainLayoutState extends State<MainLayout> {
         '/admin/schedule',
         '/admin/rooms',
         '/admin/courses',
+        '/admin/sections',
         '/logout',
       ];
     }

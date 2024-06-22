@@ -1,1 +1,36 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"examination-room-scheduling","appId":"1:472404132878:android:9db3ddfbbfc2b60649e85f","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"examination-room-scheduling","configurations":{"android":"1:472404132878:android:9db3ddfbbfc2b60649e85f","ios":"1:472404132878:ios:eb27a3c504a5cab149e85f","macos":"1:472404132878:ios:eb27a3c504a5cab149e85f","web":"1:472404132878:web:20cfc2a390a7339e49e85f","windows":"1:472404132878:web:0f8bd18b897a064149e85f"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "examination-room-scheduling",
+          "appId": "1:472404132878:android:9db3ddfbbfc2b60649e85f",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "examination-room-scheduling",
+          "configurations": {
+            "android": "1:472404132878:android:9db3ddfbbfc2b60649e85f",
+            "ios": "1:472404132878:ios:eb27a3c504a5cab149e85f",
+            "macos": "1:472404132878:ios:eb27a3c504a5cab149e85f",
+            "web": "1:472404132878:web:20cfc2a390a7339e49e85f",
+            "windows": "1:472404132878:web:0f8bd18b897a064149e85f"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "source": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "frameworksBackend": {
+      "region": "asia-east1"
+    }
+  }
+}
