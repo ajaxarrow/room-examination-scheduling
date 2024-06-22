@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'mixins/display_mixin.dart';
 
 
-final CollectionReference courses = FirebaseFirestore.instance.collection('Courses');
+final CollectionReference courses = FirebaseFirestore.instance.collection('courses');
 
 class Course with DisplayMixin{
   Course({

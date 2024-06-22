@@ -104,12 +104,12 @@ final List<Program> programs = [
   Program(
       programName: 'Bachelor of Secondary Education',
       collegeName: 'College of Education',
-      collegeAcronym: 'CED'
+      collegeAcronym: 'CoED'
   ),
   Program(
       programName: 'Bachelor of Physical Education',
       collegeName: 'College of Education',
-      collegeAcronym: 'CED'
+      collegeAcronym: 'CoED'
   ),
   Program(
       programName: 'BS Agricultural and Biosystems Engineering',
