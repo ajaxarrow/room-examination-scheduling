@@ -37,6 +37,11 @@ class _MainLayoutState extends State<MainLayout> {
           label: 'Sections',
         ),
         const BottomNavigationBarItem(
+          icon: PhosphorIcon(PhosphorIconsRegular.calendar),
+          activeIcon: PhosphorIcon(PhosphorIconsFill.calendar),
+          label: 'Calendar of Schedules',
+        ),
+        const BottomNavigationBarItem(
           icon: PhosphorIcon(PhosphorIconsRegular.signOut), // Logout icon
           label: 'Logout',
         ),
@@ -67,6 +72,11 @@ class _MainLayoutState extends State<MainLayout> {
           icon: PhosphorIcon(PhosphorIconsRegular.student),
           activeIcon: PhosphorIcon(PhosphorIconsFill.student),
           label: 'Sections',
+        ),
+        const BottomNavigationBarItem(
+          icon: PhosphorIcon(PhosphorIconsRegular.calendar),
+          activeIcon: PhosphorIcon(PhosphorIconsFill.calendar),
+          label: 'Calendar of Schedules',
         ),
         const BottomNavigationBarItem(
           icon: PhosphorIcon(PhosphorIconsRegular.signOut), // Logout icon
@@ -106,6 +116,11 @@ class _MainLayoutState extends State<MainLayout> {
           label: 'Sections',
         ),
         const BottomNavigationBarItem(
+          icon: PhosphorIcon(PhosphorIconsRegular.calendar),
+          activeIcon: PhosphorIcon(PhosphorIconsFill.calendar),
+          label: 'Calendar of Schedules',
+        ),
+        const BottomNavigationBarItem(
           icon: PhosphorIcon(PhosphorIconsRegular.signOut), // Logout icon
           label: 'Logout',
         ),
@@ -119,6 +134,7 @@ class _MainLayoutState extends State<MainLayout> {
       return [
         '/faculty/main',
         '/faculty/sections',
+        '/faculty/calendar',
         '/logout',
       ];
     } else if (widget.role == Role.registrar) {
@@ -128,6 +144,7 @@ class _MainLayoutState extends State<MainLayout> {
         '/registrar/rooms',
         '/registrar/courses',
         '/registrar/sections',
+        '/registrar/calendar',
         '/logout',
       ];
     } else if (widget.role == Role.admin) {
@@ -138,6 +155,7 @@ class _MainLayoutState extends State<MainLayout> {
         '/admin/rooms',
         '/admin/courses',
         '/admin/sections',
+        '/admin/calendar',
         '/logout',
       ];
     }

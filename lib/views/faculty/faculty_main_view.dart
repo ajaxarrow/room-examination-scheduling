@@ -5,6 +5,7 @@ import 'package:roomexaminationschedulingsystem/route_guards.dart';
 import 'package:roomexaminationschedulingsystem/enums/roles.enum.dart';
 import 'package:roomexaminationschedulingsystem/widgets/schedules/schedule_dialog_form.dart';
 import 'package:roomexaminationschedulingsystem/widgets/schedules/schedule_list.dart';
+
 class FacultyMainView extends StatefulWidget {
   const FacultyMainView({super.key});
 
@@ -100,10 +101,10 @@ class _FacultyMainViewState extends State<FacultyMainView> {
 
             if (_schedules.isNotEmpty) {
               mainContent = ScheduleList(
-                onRefresh: _refreshList,
-                role: Role.faculty,
-                schedules: _schedules,
-                onRemoveSchedule: _removeSchedule
+                  onRefresh: _refreshList,
+                  role: Role.faculty,
+                  schedules: _schedules,
+                  onRemoveSchedule: _removeSchedule
               );
             }
 
@@ -161,5 +162,3 @@ class _FacultyMainViewState extends State<FacultyMainView> {
     );
   }
 }
-
-

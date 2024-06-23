@@ -2,8 +2,13 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:roomexaminationschedulingsystem/model/academic_year.dart';
+import 'package:roomexaminationschedulingsystem/model/app_user.dart';
+import 'package:roomexaminationschedulingsystem/model/course.dart';
 import 'package:roomexaminationschedulingsystem/model/mixins/display_mixin.dart';
+import 'package:roomexaminationschedulingsystem/model/room.dart';
+import 'package:roomexaminationschedulingsystem/model/section.dart';
 import 'package:roomexaminationschedulingsystem/utils/format_date.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 final CollectionReference schedules = FirebaseFirestore.instance.collection('schedules');
 
@@ -49,6 +54,45 @@ class Schedule with DisplayMixin{
       createdAt: data['createdAt'],
       academicYearID: data['academicYearID'],
       color: colorData
+    );
+  }
+
+  Future<Appointment> convertToAppointment(Map<String, dynamic> data, id) async {
+    Timestamp startTimeStamp = data['timeStart'] as Timestamp;
+    Timestamp endTimeStamp = data['timeEnd'] as Timestamp;
+
+    DateTime dateTimeStart = startTimeStamp.toDate();
+    DateTime dateTimeEnd = endTimeStamp.toDate();
+
+    AppUser faculty = await AppUser().getUserById(data['facultyID'] as String);
+    Room room = await Room().getRoomByID(data['roomID'] as String);
+    Section section = await Section().getSectionById(data['sectionID'] as String);
+    Course course = await Course().getCourseByID(data['courseID'] as String);
+
+    // Retrieve color data as a dynamic list
+    List<dynamic> colorData = data['color'] as List<dynamic>;
+
+    // Cast each element of the color data to an integer
+    List<int> colorIntegers = colorData.map((dynamic value) => value as int).toList();
+
+    // Use the color integers to create a Color object
+    Color color = Color.fromRGBO(
+      colorIntegers[0],
+      colorIntegers[1],
+      colorIntegers[2],
+      1.0, // Opacity
+    );
+
+    return Appointment(
+        color: color,
+        subject: """
+        ${course.code} - ${section.name}
+        ${room.name} - ${faculty.name}
+        """,
+        startTime: dateTimeStart,
+        endTime: dateTimeEnd
+      // startTime: DateTime(dateTimeStart.year, dateTimeStart.month, dateTimeStart.day, dateTimeStart.hour, dateTimeStart.minute),
+      // endTime: DateTime(dateTimeEnd.year, dateTimeEnd.month, dateTimeEnd.day, dateTimeEnd.hour,dateTimeEnd.minute),
     );
   }
 
@@ -200,6 +244,14 @@ class Schedule with DisplayMixin{
     final result = querySnapshot.docs.map((doc) => Schedule.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
     return result;
   }
+  Future<List<Appointment>> getAppointments() async {
+    QuerySnapshot querySnapshot = await schedules.get();
+    List<Future<Appointment>> futureAppointments = querySnapshot.docs.map((doc) async {
+      return await convertToAppointment(doc.data() as Map<String, dynamic>, doc.id);
+    }).toList();
+    return await Future.wait(futureAppointments);
+  }
+
 
   Future<List<Schedule>> getSchedulesByRoomID(String id) async {
     QuerySnapshot querySnapshot =  await schedules
@@ -208,6 +260,8 @@ class Schedule with DisplayMixin{
     final result = querySnapshot.docs.map((doc) => Schedule.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
     return result;
   }
+
+
 
 
 }
