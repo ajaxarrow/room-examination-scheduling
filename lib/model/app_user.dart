@@ -15,10 +15,12 @@ class AppUser with DisplayMixin{
     this.context,
     this.uid,
     this.role,
-    this.isActive
+    this.isActive,
+    this.docID
   });
 
   final String? uid;
+  final String? docID;
   final String? name;
   final String? email;
   final String? password;
@@ -33,7 +35,8 @@ class AppUser with DisplayMixin{
       email: data['email'],
       password: data['password'],
       role: data['role'],
-      isActive: data['isActive']
+      isActive: data['isActive'],
+      docID: id
     );
   }
 
@@ -157,7 +160,7 @@ class AppUser with DisplayMixin{
 
   Future<void> updateUser() async {
     try{
-      await users.doc(uid).update({
+      await users.doc(docID).update({
         'name': name!,
         'isActive': isActive,
         'role': role,

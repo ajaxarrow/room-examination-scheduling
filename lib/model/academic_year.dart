@@ -9,6 +9,7 @@ final CollectionReference academicYears = FirebaseFirestore.instance.collection(
 class AcademicYear with DisplayMixin{
   AcademicYear({
     this.id,
+
     this.context,
     this.registrarID,
     this.yearEnd,

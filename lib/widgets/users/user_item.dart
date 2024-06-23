@@ -83,6 +83,7 @@ class _UserItemState extends State<UserItem> {
                       value: isActive!,
                       onChanged: (value) async {
                         await AppUser(
+                            docID: widget.user!.docID,
                             uid: widget.user!.uid!,
                             isActive: value,
                             role: widget.user!.role!,
