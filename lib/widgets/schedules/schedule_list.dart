@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:roomexaminationschedulingsystem/enums/roles.enum.dart';
-import 'package:roomexaminationschedulingsystem/main.dart';
 import 'package:roomexaminationschedulingsystem/model/app_user.dart';
 import 'package:roomexaminationschedulingsystem/model/schedule.dart';
 import 'package:roomexaminationschedulingsystem/widgets/schedules/schedule_item.dart';
@@ -13,12 +12,14 @@ class ScheduleList extends StatelessWidget {
     required this.role,
     required this.schedules,
     required this.onRemoveSchedule,
+    required this.isCurrent
   });
 
   final void Function(String id) onRemoveSchedule;
   final List<Schedule> schedules;
   final Role role;
   final Function() onRefresh;
+  final bool isCurrent;
 
 
 
@@ -67,7 +68,8 @@ class ScheduleList extends StatelessWidget {
                 child: ScheduleItem(
                   schedule: schedules[index],
                   onRefresh: onRefresh,
-                  role: role
+                  role: role,
+                  isCurrent: isCurrent,
                 )
             )
     );

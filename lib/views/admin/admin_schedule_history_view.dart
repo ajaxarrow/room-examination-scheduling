@@ -1,30 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:roomexaminationschedulingsystem/enums/roles.enum.dart';
+import 'package:roomexaminationschedulingsystem/layout/main_layout.dart';
+import 'package:roomexaminationschedulingsystem/model/academic_year.dart';
 import 'package:roomexaminationschedulingsystem/model/schedule.dart';
-import 'package:roomexaminationschedulingsystem/widgets/schedules/schedule_dialog_form.dart';
+import 'package:roomexaminationschedulingsystem/route_guards.dart';
 import 'package:roomexaminationschedulingsystem/widgets/schedules/schedule_list.dart';
-import '../../layout/main_layout.dart';
-import '../../route_guards.dart';
 
-class AdminExamScheduleView extends StatefulWidget {
-  const AdminExamScheduleView({super.key});
+class AdminScheduleHistoryView extends StatefulWidget {
+  const AdminScheduleHistoryView({super.key});
 
   @override
-  State<AdminExamScheduleView> createState() => _AdminExamScheduleViewState();
+  State<AdminScheduleHistoryView> createState() => _AdminScheduleHistoryViewState();
 }
 
-class _AdminExamScheduleViewState extends State<AdminExamScheduleView> {
+class _AdminScheduleHistoryViewState extends State<AdminScheduleHistoryView> {
   List<Schedule> _schedules = [];
+  String selectedAcademicYearID = '';
+  List<DropdownMenuItem<String>> items = [];
 
   Future<void> fetchSchedules() async{
     _schedules.clear();
-    _schedules = await Schedule().getSchedules();
+    _schedules = await Schedule(
+      academicYearID: selectedAcademicYearID
+    ).getSchedulesByAY();
   }
 
   void _refreshList(){
     setState(() {
 
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isAuthenticated('admin', context);
+    items.clear();
+    AcademicYear().getAcademicYears().then((value){
+      selectedAcademicYearID = value[0].id!;
+      fetchSchedules();
+      items = value.map((academicYear) {
+        return DropdownMenuItem(
+          value: academicYear.id,
+          child: Text('${academicYear.yearStart} - ${academicYear.yearEnd} (${academicYear.semester})'),
+        );
+      }).toList();
+      fetchSchedules();
+    });
+  }
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   void _removeSchedule(String id) async {
@@ -37,33 +64,6 @@ class _AdminExamScheduleViewState extends State<AdminExamScheduleView> {
           content: Text("Schedule Deleted!"),
         )
     );
-  }
-
-
-  void showScheduleFormDialog() {
-    showDialog(
-        context: context,
-        builder: (ctx) =>
-            SimpleDialog(
-              children: [
-                ScheduleDialogForm(
-                    mode: Mode.create,
-                    onRefresh: _refreshList,
-                    role: Role.admin
-                )
-              ],
-            )
-    );
-  }
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    isAuthenticated('admin', context);
-  }
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -99,11 +99,11 @@ class _AdminExamScheduleViewState extends State<AdminExamScheduleView> {
 
             if (_schedules.isNotEmpty) {
               mainContent = ScheduleList(
-                isCurrent: true,
-                onRefresh: _refreshList,
-                role: Role.admin,
-                schedules: _schedules,
-                onRemoveSchedule: _removeSchedule
+                  isCurrent: false,
+                  onRefresh: _refreshList,
+                  role: Role.admin,
+                  schedules: _schedules,
+                  onRemoveSchedule: _removeSchedule
               );
             }
 
@@ -111,6 +111,24 @@ class _AdminExamScheduleViewState extends State<AdminExamScheduleView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height:  10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    children: [
+                      const Text('Academic Year: '),
+                      DropdownButton<String>(
+                        value: selectedAcademicYearID,
+                        items: items,
+                        onChanged: (value) async {
+                          setState(() {
+                            selectedAcademicYearID = value!;
+                          });
+                        },
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 10),
                 _schedules.isNotEmpty ? const Padding(
                   padding: EdgeInsets.only(left:  15,  bottom:  5),
@@ -129,8 +147,8 @@ class _AdminExamScheduleViewState extends State<AdminExamScheduleView> {
 
           return MainLayout(
             role: Role.admin,
-            title: 'Exam Schedules',
-            index: 2,
+            title: 'Schedule History',
+            index: 7,
             content: SizedBox(
               width: double.infinity,
               height: double.infinity,
@@ -147,10 +165,6 @@ class _AdminExamScheduleViewState extends State<AdminExamScheduleView> {
                     body: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: body,
-                    ),
-                    floatingActionButton: FloatingActionButton(
-                      onPressed: showScheduleFormDialog,
-                      child: const Icon(Icons.add),
                     ),
                   )
               ),

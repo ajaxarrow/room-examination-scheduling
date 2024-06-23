@@ -15,12 +15,14 @@ class ScheduleItem extends StatefulWidget {
     super.key,
     required this.schedule,
     required this.onRefresh,
-    required this.role
+    required this.role,
+    required this.isCurrent
   });
 
   final void Function() onRefresh;
   final Schedule schedule;
   final Role role;
+  final bool isCurrent;
 
   @override
   State<ScheduleItem> createState() => _ScheduleItemState();
@@ -91,6 +93,7 @@ class _ScheduleItemState extends State<ScheduleItem> {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context){
                 return ScheduleDetailsView(
+                  isCurrent: widget.isCurrent,
                   role: widget.role,
                   course: course,
                   room: room,
@@ -143,7 +146,7 @@ class _ScheduleItemState extends State<ScheduleItem> {
                     children: [
                       isLarge ? Text('Time: ${formatTimestamp(widget.schedule!.timeStart!)} - ${formatTimestamp(widget.schedule!.timeEnd!)}') : const SizedBox.shrink(),
                       const Spacer(),
-                      (isLarge && (currentUser.role != 'faculty' || FirebaseAuth.instance.currentUser!.uid! == widget.schedule.facultyID!)) ? TextButton.icon(
+                      (isLarge && widget.isCurrent && (currentUser.role != 'faculty' || FirebaseAuth.instance.currentUser!.uid! == widget.schedule.facultyID!)) ? TextButton.icon(
                           onPressed: showScheduleFormDialog,
                           label: const Text('Edit'),
                           icon: const Icon(Icons.edit,

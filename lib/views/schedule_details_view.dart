@@ -18,7 +18,8 @@ class ScheduleDetailsView extends StatefulWidget {
     required this.faculty,
     required this.section,
     required this.schedule,
-    required this.currentUser
+    required this.currentUser,
+    required this.isCurrent
   });
 
   final Role role;
@@ -28,6 +29,7 @@ class ScheduleDetailsView extends StatefulWidget {
   final String section;
   final Schedule schedule;
   final AppUser currentUser;
+  final bool isCurrent;
 
   @override
   State<ScheduleDetailsView> createState() => _ScheduleDetailsViewState();
@@ -128,7 +130,7 @@ class _ScheduleDetailsViewState extends State<ScheduleDetailsView> {
                       ],
                     ),
                   ),
-                  (widget.currentUser.role != 'faculty' || FirebaseAuth.instance.currentUser!.uid! == widget.schedule.facultyID!) ? ClipRRect(
+                  widget.isCurrent && (widget.currentUser.role != 'faculty' || FirebaseAuth.instance.currentUser!.uid! == widget.schedule.facultyID!) ? ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(

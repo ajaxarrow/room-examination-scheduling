@@ -6,11 +6,13 @@ import 'package:roomexaminationschedulingsystem/views/admin/admin_courses_view.d
 import 'package:roomexaminationschedulingsystem/views/admin/admin_exam_schedule_view.dart';
 import 'package:roomexaminationschedulingsystem/views/admin/admin_main_view.dart';
 import 'package:roomexaminationschedulingsystem/views/admin/admin_rooms_view.dart';
+import 'package:roomexaminationschedulingsystem/views/admin/admin_schedule_history_view.dart';
 import 'package:roomexaminationschedulingsystem/views/admin/admin_sections_view.dart';
 import 'package:roomexaminationschedulingsystem/views/admin/users_view.dart';
 import 'package:roomexaminationschedulingsystem/views/auth_view.dart';
 import 'package:roomexaminationschedulingsystem/views/faculty/faculty_calendar_view.dart';
 import 'package:roomexaminationschedulingsystem/views/faculty/faculty_main_view.dart';
+import 'package:roomexaminationschedulingsystem/views/faculty/faculty_schedule_history_view.dart';
 import 'package:roomexaminationschedulingsystem/views/faculty/faculty_sections_view.dart';
 import 'package:roomexaminationschedulingsystem/views/redirect_view.dart';
 import 'package:roomexaminationschedulingsystem/views/registrar/registrar_calendar_view.dart';
@@ -18,6 +20,7 @@ import 'package:roomexaminationschedulingsystem/views/registrar/registrar_course
 import 'package:roomexaminationschedulingsystem/views/registrar/registrar_exam_schedule_view.dart';
 import 'package:roomexaminationschedulingsystem/views/registrar/registrar_main_view.dart';
 import 'package:roomexaminationschedulingsystem/views/registrar/registrar_rooms_view.dart';
+import 'package:roomexaminationschedulingsystem/views/registrar/registrar_schedule_history_view.dart';
 import 'package:roomexaminationschedulingsystem/views/registrar/registrar_sections_view.dart';
 
 import 'firebase_options.dart';
@@ -45,12 +48,14 @@ class App extends StatelessWidget {
         '/faculty/main': (context) => const FacultyMainView(),
         '/faculty/sections': (context) => const FacultySectionsView(),
         '/faculty/calendar': (context) => const FacultyCalendarView(),
+        '/faculty/history': (context) => const FacultyScheduleHistoryView(),
         '/registrar/main': (context) => const RegistrarMainView(),
         '/registrar/schedule': (context) => const RegistrarExamScheduleView(),
         '/registrar/rooms': (context) => const RegistrarRoomsView(),
         '/registrar/courses': (context) => const RegistrarCoursesView(),
         '/registrar/sections': (context) => const RegistrarSectionsView(),
         '/registrar/calendar': (context) => const RegistrarCalendarView(),
+        '/registrar/history': (context) => const RegistrarScheduleHistoryView(),
         '/admin/main': (context) => const AdminMainView(),
         '/admin/users': (context) => const UsersView(),
         '/admin/schedule': (context) => const AdminExamScheduleView(),
@@ -58,6 +63,7 @@ class App extends StatelessWidget {
         '/admin/courses': (context) => const AdminCoursesView(),
         '/admin/sections': (context) => const AdminSectionsView(),
         '/admin/calendar': (context) => const AdminCalendarView(),
+        '/admin/history': (context) => const AdminScheduleHistoryView(),
       },
     );
   }

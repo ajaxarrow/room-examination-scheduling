@@ -101,6 +101,7 @@ class _FacultyMainViewState extends State<FacultyMainView> {
 
             if (_schedules.isNotEmpty) {
               mainContent = ScheduleList(
+                  isCurrent: true,
                   onRefresh: _refreshList,
                   role: Role.faculty,
                   schedules: _schedules,

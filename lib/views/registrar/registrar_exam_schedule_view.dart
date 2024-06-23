@@ -95,6 +95,7 @@ class _RegistrarExamScheduleViewState extends State<RegistrarExamScheduleView> {
 
             if (_schedules.isNotEmpty) {
               mainContent = ScheduleList(
+                  isCurrent: true,
                   onRefresh: _refreshList,
                   role: Role.registrar,
                   schedules: _schedules,

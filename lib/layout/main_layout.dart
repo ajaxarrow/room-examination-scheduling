@@ -42,6 +42,11 @@ class _MainLayoutState extends State<MainLayout> {
           label: 'Calendar of Schedules',
         ),
         const BottomNavigationBarItem(
+          icon: PhosphorIcon(PhosphorIconsRegular.hourglassMedium),
+          activeIcon: PhosphorIcon(PhosphorIconsFill.hourglassMedium),
+          label: 'Schedule History',
+        ),
+        const BottomNavigationBarItem(
           icon: PhosphorIcon(PhosphorIconsRegular.signOut), // Logout icon
           label: 'Logout',
         ),
@@ -77,6 +82,11 @@ class _MainLayoutState extends State<MainLayout> {
           icon: PhosphorIcon(PhosphorIconsRegular.calendar),
           activeIcon: PhosphorIcon(PhosphorIconsFill.calendar),
           label: 'Calendar of Schedules',
+        ),
+        const BottomNavigationBarItem(
+          icon: PhosphorIcon(PhosphorIconsRegular.hourglassMedium),
+          activeIcon: PhosphorIcon(PhosphorIconsFill.hourglassMedium),
+          label: 'Schedule History',
         ),
         const BottomNavigationBarItem(
           icon: PhosphorIcon(PhosphorIconsRegular.signOut), // Logout icon
@@ -121,6 +131,11 @@ class _MainLayoutState extends State<MainLayout> {
           label: 'Calendar of Schedules',
         ),
         const BottomNavigationBarItem(
+          icon: PhosphorIcon(PhosphorIconsRegular.hourglassMedium),
+          activeIcon: PhosphorIcon(PhosphorIconsFill.hourglassMedium),
+          label: 'Schedule History',
+        ),
+        const BottomNavigationBarItem(
           icon: PhosphorIcon(PhosphorIconsRegular.signOut), // Logout icon
           label: 'Logout',
         ),
@@ -135,6 +150,7 @@ class _MainLayoutState extends State<MainLayout> {
         '/faculty/main',
         '/faculty/sections',
         '/faculty/calendar',
+        '/faculty/history',
         '/logout',
       ];
     } else if (widget.role == Role.registrar) {
@@ -145,6 +161,7 @@ class _MainLayoutState extends State<MainLayout> {
         '/registrar/courses',
         '/registrar/sections',
         '/registrar/calendar',
+        '/registrar/history',
         '/logout',
       ];
     } else if (widget.role == Role.admin) {
@@ -156,6 +173,7 @@ class _MainLayoutState extends State<MainLayout> {
         '/admin/courses',
         '/admin/sections',
         '/admin/calendar',
+        '/admin/history',
         '/logout',
       ];
     }
@@ -217,41 +235,41 @@ class _MainLayoutState extends State<MainLayout> {
                 height: height,
                 width: railWidth,
                 child: NavigationRail(
-                    selectedIndex: _selectedIndex,
-                    onDestinationSelected: (int index) {
-                      if (index == _navBarItems.length - 1) {
-                        FirebaseAuth.instance.signOut();
-                        Navigator.of(context).pushReplacementNamed('/redirect');
-                      } else {
-                        Navigator.of(context).pushReplacementNamed(_navBarItemLinks[index]);
-                      }
-                    },
-                    extended: isLargeScreen,
-                    leading: SizedBox(
-                      height: 100, // Adjust the height as needed
-                      child: Center(
-                        child: isLargeScreen ? const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            PhosphorIcon(PhosphorIconsFill.calendarStar, size: 26), // Example icon
-                            SizedBox(width: 8), // Space between icon and text
-                            Text(
-                              'Room Exam Scheduler',
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ) : const PhosphorIcon(PhosphorIconsDuotone.chalkboardTeacher, size: 50),
-                      ),
+                  selectedIndex: _selectedIndex,
+                  onDestinationSelected: (int index) {
+                    if (index == _navBarItems.length - 1) {
+                      FirebaseAuth.instance.signOut();
+                      Navigator.of(context).pushReplacementNamed('/redirect');
+                    } else {
+                      Navigator.of(context).pushReplacementNamed(_navBarItemLinks[index]);
+                    }
+                  },
+                  extended: isLargeScreen,
+                  leading: SizedBox(
+                    height: 50, // Adjust the height as needed
+                    child: Center(
+                      child: isLargeScreen ? const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          PhosphorIcon(PhosphorIconsFill.calendarStar, size: 26), // Example icon
+                          SizedBox(width: 8), // Space between icon and text
+                          Text(
+                            'Room Exam Scheduler',
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ) : const PhosphorIcon(PhosphorIconsDuotone.chalkboardTeacher, size: 50),
                     ),
-                    destinations: _navBarItems
-                        .map((item) => NavigationRailDestination(
-                        icon: item.icon,
-                        selectedIcon: item.activeIcon,
-                        label: Text(
-                          item.label!,
-                        )))
-                        .toList(),
                   ),
+                  destinations: _navBarItems
+                      .map((item) => NavigationRailDestination(
+                      icon: item.icon,
+                      selectedIcon: item.activeIcon,
+                      label: Text(
+                        item.label!,
+                      )))
+                      .toList(),
+                ),
               ),
             const VerticalDivider(thickness: 1, width: 1),
             // This is the main content.
@@ -273,32 +291,32 @@ class _MainLayoutState extends State<MainLayout> {
                             vertical: 20
                         ),
                         child: SizedBox(
-                          width: isSmallScreen ? width * 0.99 : mainContainerWidth,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(widget.title,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700
+                            width: isSmallScreen ? width * 0.99 : mainContainerWidth,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(widget.title,
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Row(
-                                  children: [
-                                    const PhosphorIcon(PhosphorIconsRegular.user),
-                                    const SizedBox(width: 5),
-                                    Text( facultyName,
-                                      style: const TextStyle(
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: Row(
+                                    children: [
+                                      const PhosphorIcon(PhosphorIconsRegular.user),
+                                      const SizedBox(width: 5),
+                                      Text( facultyName,
+                                        style: const TextStyle(
                                           fontSize: 16,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          )
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )
                         )
                     ),
                   ),

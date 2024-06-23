@@ -240,12 +240,27 @@ class Schedule with DisplayMixin{
   }
 
   Future<List<Schedule>> getSchedules() async {
-    QuerySnapshot querySnapshot =  await schedules.get();
+    final academicYear = await AcademicYear().getDefault();
+    QuerySnapshot querySnapshot =  await schedules
+        .where('academicYearID', isEqualTo: academicYear.id)
+        .get();
     final result = querySnapshot.docs.map((doc) => Schedule.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
     return result;
   }
+
+  Future<List<Schedule>> getSchedulesByAY() async {
+    QuerySnapshot querySnapshot =  await schedules
+        .where('academicYearID', isEqualTo: academicYearID)
+        .get();
+    final result = querySnapshot.docs.map((doc) => Schedule.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
+    return result;
+  }
+
   Future<List<Appointment>> getAppointments() async {
-    QuerySnapshot querySnapshot = await schedules.get();
+    final academicYear = await AcademicYear().getDefault();
+    QuerySnapshot querySnapshot = await schedules
+        .where('academicYearID', isEqualTo: academicYear.id)
+        .get();
     List<Future<Appointment>> futureAppointments = querySnapshot.docs.map((doc) async {
       return await convertToAppointment(doc.data() as Map<String, dynamic>, doc.id);
     }).toList();
