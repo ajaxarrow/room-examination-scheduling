@@ -115,6 +115,7 @@ class _ScheduleDialogFormState extends State<ScheduleDialogForm> {
 
     if(widget.mode == Mode.create){
       addSchedule(Schedule(
+        context: context,
         facultyID: widget.role == Role.faculty ? FirebaseAuth.instance.currentUser!.uid! : selectedFaculty,
         courseID: selectedCourse,
         roomID: selectedRoom,
@@ -124,6 +125,7 @@ class _ScheduleDialogFormState extends State<ScheduleDialogForm> {
       ));
     } else {
       updateSchedule(Schedule(
+        context: context,
         id: widget.schedule!.id!,
         facultyID: widget.role == Role.faculty ? FirebaseAuth.instance.currentUser!.uid! : selectedFaculty,
         courseID: selectedCourse,

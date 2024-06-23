@@ -129,6 +129,14 @@ class _ScheduleItemState extends State<ScheduleItem> {
                     ],
                   ),
                   const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      Text(room)
+                    ],
+                  ),
+                  const SizedBox(
                     height: 4,
                   ),
                   Row(
