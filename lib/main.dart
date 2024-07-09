@@ -22,6 +22,7 @@ import 'package:roomexaminationschedulingsystem/views/registrar/registrar_main_v
 import 'package:roomexaminationschedulingsystem/views/registrar/registrar_rooms_view.dart';
 import 'package:roomexaminationschedulingsystem/views/registrar/registrar_schedule_history_view.dart';
 import 'package:roomexaminationschedulingsystem/views/registrar/registrar_sections_view.dart';
+import 'package:roomexaminationschedulingsystem/views/registrar/registrar_users_view.dart';
 
 import 'firebase_options.dart';
 
@@ -56,6 +57,7 @@ class App extends StatelessWidget {
         '/registrar/sections': (context) => const RegistrarSectionsView(),
         '/registrar/calendar': (context) => const RegistrarCalendarView(),
         '/registrar/history': (context) => const RegistrarScheduleHistoryView(),
+        '/registrar/users': (context) => const RegistrarUsersView(),
         '/admin/main': (context) => const AdminMainView(),
         '/admin/users': (context) => const UsersView(),
         '/admin/schedule': (context) => const AdminExamScheduleView(),

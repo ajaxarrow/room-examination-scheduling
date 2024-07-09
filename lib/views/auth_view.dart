@@ -13,7 +13,7 @@ class AuthView extends StatefulWidget {
 }
 
 class _AuthViewState extends State<AuthView> {
-  bool isRegister = true;
+  bool isRegister = false;
   final _form = GlobalKey<FormState>();
   bool showPassword = true;
   int selectedValue = 1;
@@ -143,6 +143,9 @@ class _AuthViewState extends State<AuthView> {
                                       height: 20,
                                     ) : const SizedBox.shrink(),
                                     isRegister ? TextFormField(
+                                      onFieldSubmitted: (value){
+                                        submit();
+                                      },
                                       controller: nameController,
                                       decoration: const InputDecoration(
                                         prefixIcon: Icon(Icons.person),
@@ -159,6 +162,9 @@ class _AuthViewState extends State<AuthView> {
                                       height: 15,
                                     ) : const SizedBox.shrink(),
                                     TextFormField(
+                                      onFieldSubmitted: (value){
+                                        submit();
+                                      },
                                       controller: emailController,
                                       decoration: const InputDecoration(
                                         prefixIcon: Icon(Icons.email),
@@ -172,6 +178,9 @@ class _AuthViewState extends State<AuthView> {
                                       height: 15,
                                     ),
                                     TextFormField(
+                                      onFieldSubmitted: (value){
+                                        submit();
+                                      },
                                       controller: passwordController,
                                       obscureText: showPassword,
                                       decoration: InputDecoration(
@@ -340,6 +349,9 @@ class _AuthViewState extends State<AuthView> {
                             height: 20,
                           ) : const SizedBox.shrink(),
                           isRegister ? TextFormField(
+                            onFieldSubmitted: (value){
+                              submit();
+                            },
                             controller: nameController,
                             decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.person),
@@ -356,6 +368,9 @@ class _AuthViewState extends State<AuthView> {
                             height: 15,
                           ) : const SizedBox.shrink(),
                           TextFormField(
+                            onFieldSubmitted: (value){
+                              submit();
+                            },
                             controller: emailController,
                             decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.email),
@@ -369,6 +384,9 @@ class _AuthViewState extends State<AuthView> {
                             height: 15,
                           ),
                           TextFormField(
+                            onFieldSubmitted: (value){
+                              submit();
+                            },
                             controller: passwordController,
                             obscureText: showPassword,
                             decoration: InputDecoration(

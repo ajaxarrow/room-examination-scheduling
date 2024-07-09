@@ -24,6 +24,7 @@ class Schedule with DisplayMixin{
     this.timeStart,
     this.createdAt,
     this.academicYearID,
+    this.proctor,
     this.color
   });
 
@@ -34,6 +35,7 @@ class Schedule with DisplayMixin{
   final String? courseID;
   final String? facultyID;
   final String? academicYearID;
+  final String? proctor;
   final Timestamp? timeStart;
   final Timestamp? timeEnd;
   final Timestamp? createdAt;
@@ -53,7 +55,8 @@ class Schedule with DisplayMixin{
       timeEnd: data['timeEnd'],
       createdAt: data['createdAt'],
       academicYearID: data['academicYearID'],
-      color: colorData
+      color: colorData,
+      proctor: data['proctor']
     );
   }
 
@@ -108,7 +111,8 @@ class Schedule with DisplayMixin{
       'timeEnd': timeEnd,
       'academicYearID': academicYear.id,
       'createdAt': FieldValue.serverTimestamp(),
-      'color': getRandomColor()
+      'color': getRandomColor(),
+      'proctor': proctor
     });
   }
 
@@ -117,6 +121,7 @@ class Schedule with DisplayMixin{
       'courseID': courseID,
       'facultyID': facultyID,
       'roomID': roomID,
+      'proctor': proctor,
       'sectionID': sectionID,
       'timeStart': timeStart,
       'timeEnd': timeEnd,

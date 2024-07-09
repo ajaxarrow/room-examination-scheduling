@@ -12,6 +12,7 @@ import 'package:roomexaminationschedulingsystem/widgets/schedules/schedule_dialo
 class ScheduleDetailsView extends StatefulWidget {
   const ScheduleDetailsView({
     super.key,
+    required this.proctor,
     required this.role,
     required this.course,
     required this.room,
@@ -23,6 +24,7 @@ class ScheduleDetailsView extends StatefulWidget {
   });
 
   final Role role;
+  final String proctor;
   final String room;
   final String course;
   final String faculty;
@@ -218,6 +220,20 @@ class _ScheduleDetailsViewState extends State<ScheduleDetailsView> {
                 ],
               ),
               const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Proctor'),
+                        Text(widget.proctor)
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

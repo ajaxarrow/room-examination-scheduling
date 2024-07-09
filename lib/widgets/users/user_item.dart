@@ -33,14 +33,14 @@ class _UserItemState extends State<UserItem> {
       showDialog(
           context: context,
           builder: (ctx) => SimpleDialog(
-        children: [
-            UserDialogForm(
-            onUpdateUser: widget.onUpdateUserList,
-            mode: Mode.update,
-            user: widget.user,
-          )
-        ],
-      )
+          children: [
+              UserDialogForm(
+              onUpdateUser: widget.onUpdateUserList,
+              mode: Mode.update,
+              user: widget.user,
+            )
+          ],
+        )
       );
     }
 

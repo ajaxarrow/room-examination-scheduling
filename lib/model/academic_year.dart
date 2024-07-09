@@ -161,4 +161,15 @@ class AcademicYear with DisplayMixin{
     return allAcademicYears[0];
   }
 
+  Future<AcademicYear> getAcademicYearByID(String id) async {
+    DocumentSnapshot docSnapshot = await academicYears.doc(id).get();
+    if (docSnapshot.exists) {
+      AcademicYear academicYear = AcademicYear.fromMap(docSnapshot.data() as Map<String, dynamic>, docSnapshot.id);
+      return academicYear;
+    } else {
+      // Handle the case where the document does not exist
+      throw Exception('Room with ID $id not found');
+    }
+  }
+
 }

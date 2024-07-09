@@ -29,16 +29,16 @@ class _UsersViewState extends State<UsersView> {
   }
 
   void _openUserDialogForm(){
-    showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20))
-        ),
-        builder: (ctx) => UserDialogForm(
-          mode: Mode.create,
-          onAddUser: _refreshList,
-        )
+    showDialog(
+      context: context,
+      builder: (ctx) => SimpleDialog(
+        children: [
+          UserDialogForm(
+            mode: Mode.create,
+            onAddUser: _refreshList,
+          )
+        ],
+      )
     );
   }
 

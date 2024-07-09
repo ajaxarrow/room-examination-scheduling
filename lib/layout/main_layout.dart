@@ -89,6 +89,11 @@ class _MainLayoutState extends State<MainLayout> {
           label: 'Schedule History',
         ),
         const BottomNavigationBarItem(
+          icon: PhosphorIcon(PhosphorIconsRegular.users),
+          activeIcon: PhosphorIcon(PhosphorIconsFill.users),
+          label: 'Users',
+        ),
+        const BottomNavigationBarItem(
           icon: PhosphorIcon(PhosphorIconsRegular.signOut), // Logout icon
           label: 'Logout',
         ),
@@ -162,6 +167,7 @@ class _MainLayoutState extends State<MainLayout> {
         '/registrar/sections',
         '/registrar/calendar',
         '/registrar/history',
+        '/registrar/users',
         '/logout',
       ];
     } else if (widget.role == Role.admin) {

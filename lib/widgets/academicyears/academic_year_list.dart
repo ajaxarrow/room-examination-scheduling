@@ -21,20 +21,20 @@ class AcademicYearList extends StatelessWidget {
       itemCount: academicYears.length,
       itemBuilder: (ctx, index) =>
         Dismissible(
-          confirmDismiss: (direction) async {
-            if (FirebaseAuth.instance.currentUser?.email != 'admin@gmail.com'){
-              ScaffoldMessenger.of(context).clearSnackBars();
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    duration: Duration(seconds: 2),
-                    content: Text("Deletion Prohibited! Only Super Admin have the Deletion Capabilities"),
-                  ));
-              return false;
-            }
-            else{
-              return true;
-            }
-          },
+          // confirmDismiss: (direction) async {
+          //   if (FirebaseAuth.instance.currentUser?.email != 'admin@gmail.com'){
+          //     ScaffoldMessenger.of(context).clearSnackBars();
+          //     ScaffoldMessenger.of(context).showSnackBar(
+          //         const SnackBar(
+          //           duration: Duration(seconds: 2),
+          //           content: Text("Deletion Prohibited! Only Super Admin have the Deletion Capabilities"),
+          //         ));
+          //     return false;
+          //   }
+          //   else{
+          //     return true;
+          //   }
+          // },
           background: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),

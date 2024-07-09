@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:roomexaminationschedulingsystem/enums/roles.enum.dart';
 import 'package:roomexaminationschedulingsystem/model/app_user.dart';
@@ -36,6 +37,7 @@ class _ScheduleDialogFormState extends State<ScheduleDialogForm> {
   String selectedRoom = '';
   String selectedSection = '';
   String selectedFaculty = '';
+  TextEditingController proctorController = TextEditingController();
   List<DropdownMenuItem> courses = [];
   List<DropdownMenuItem> rooms = [];
   List<DropdownMenuItem> sections = [];
@@ -121,7 +123,8 @@ class _ScheduleDialogFormState extends State<ScheduleDialogForm> {
         roomID: selectedRoom,
         sectionID: selectedSection,
         timeStart: convertToFirebaseTimestamp(scheduleDateStart, scheduleTimeStart),
-        timeEnd: convertToFirebaseTimestamp(scheduleDateEnd, scheduleTimeEnd)
+        timeEnd: convertToFirebaseTimestamp(scheduleDateEnd, scheduleTimeEnd),
+        proctor: proctorController.text
       ));
     } else {
       updateSchedule(Schedule(
@@ -131,6 +134,7 @@ class _ScheduleDialogFormState extends State<ScheduleDialogForm> {
         courseID: selectedCourse,
         roomID: selectedRoom,
         sectionID: selectedSection,
+        proctor: proctorController.text,
         timeStart: convertToFirebaseTimestamp(scheduleDateStart, scheduleTimeStart),
         timeEnd: convertToFirebaseTimestamp(scheduleDateEnd, scheduleTimeEnd)
       ));
@@ -188,6 +192,7 @@ class _ScheduleDialogFormState extends State<ScheduleDialogForm> {
 
       if (widget.mode == Mode.update) {
         setState(() {
+          proctorController.text = widget.schedule!.proctor!;
           selectedCourse = widget.schedule!.courseID!;
           selectedRoom = widget.schedule!.roomID!;
           selectedFaculty = widget.schedule!.facultyID!;
@@ -269,16 +274,43 @@ class _ScheduleDialogFormState extends State<ScheduleDialogForm> {
                 ],
               ),
               const SizedBox(height: 15),
-              const Text('Course: '),
-              const SizedBox(height: 8),
-              DropdownButton(
-                  value: selectedCourse,
-                  items: courses,
-                  onChanged: (value){
-                    setState(() {
-                      selectedCourse = value;
-                    });
-                  }
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Course: '),
+                      const SizedBox(height: 8),
+                      DropdownButton(
+                          value: selectedCourse,
+                          items: courses,
+                          onChanged: (value){
+                            setState(() {
+                              selectedCourse = value;
+                            });
+                          }
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 25,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Section: '),
+                      const SizedBox(height: 8),
+                      DropdownButton(
+                          value: selectedSection,
+                          items: sections,
+                          onChanged: (value){
+                            setState(() {
+                              selectedSection = value;
+                            });
+                          }
+                      ),
+                    ],
+                  ),
+                ],
               ),
               const SizedBox(height: 15),
               const Text('Room: '),
@@ -289,18 +321,6 @@ class _ScheduleDialogFormState extends State<ScheduleDialogForm> {
                   onChanged: (value){
                     setState(() {
                       selectedRoom = value;
-                    });
-                  }
-              ),
-              const SizedBox(height: 15),
-              const Text('Section: '),
-              const SizedBox(height: 8),
-              DropdownButton(
-                  value: selectedSection,
-                  items: sections,
-                  onChanged: (value){
-                    setState(() {
-                      selectedSection = value;
                     });
                   }
               ),
@@ -316,6 +336,22 @@ class _ScheduleDialogFormState extends State<ScheduleDialogForm> {
                     });
                   }
               ) : const SizedBox.shrink(),
+              const SizedBox(height: 15),
+              const Text('Proctor Name:', style: TextStyle(fontWeight: FontWeight.w500)),
+              const SizedBox(height: 8),
+              TextFormField(
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Proctor Name start must not be empty';
+                  }
+                  return null;
+                },
+                controller: proctorController,
+                decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.title),
+                    hintText: 'Enter Proctor Name'
+                ),
+              ),
               const SizedBox(height: 25),
               Text('Time Start: (Selected: ${formatTimestamp(convertToFirebaseTimestamp(scheduleDateStart, scheduleTimeStart))})', style: const TextStyle(fontWeight: FontWeight.w500)),
               const SizedBox(height: 8),

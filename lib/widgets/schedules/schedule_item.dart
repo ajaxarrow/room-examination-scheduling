@@ -93,6 +93,7 @@ class _ScheduleItemState extends State<ScheduleItem> {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (context){
                 return ScheduleDetailsView(
+                  proctor: widget.schedule.proctor!,
                   isCurrent: widget.isCurrent,
                   role: widget.role,
                   course: course,
