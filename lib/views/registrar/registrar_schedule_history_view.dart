@@ -4,6 +4,7 @@ import 'package:roomexaminationschedulingsystem/layout/main_layout.dart';
 import 'package:roomexaminationschedulingsystem/model/academic_year.dart';
 import 'package:roomexaminationschedulingsystem/model/schedule.dart';
 import 'package:roomexaminationschedulingsystem/route_guards.dart';
+import 'package:roomexaminationschedulingsystem/widgets/download_schedule_dialog.dart';
 import 'package:roomexaminationschedulingsystem/widgets/schedules/schedule_list.dart';
 import 'package:roomexaminationschedulingsystem/utils/download.dart';
 
@@ -30,6 +31,20 @@ class _RegistrarScheduleHistoryViewState extends State<RegistrarScheduleHistoryV
     setState(() {
 
     });
+  }
+
+  void showDownloadDialog() {
+    showDialog(
+      context: context,
+      builder: (ctx) =>
+        SimpleDialog(
+          children: [
+            DownloadScheduleDialog(
+              schedules: _schedules,
+              academicYearID: selectedAcademicYearID)
+          ],
+        )
+    );
   }
 
   @override
@@ -129,33 +144,9 @@ class _RegistrarScheduleHistoryViewState extends State<RegistrarScheduleHistoryV
                         },
                       ),
                       const Spacer(),
-                      const Text('Download as: '),
-                      TextButton(
-                        onPressed: () async {
-                          await savePDF(_schedules, selectedAcademicYearID);
-                          ScaffoldMessenger.of(context).clearSnackBars();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                duration: Duration(seconds: 2),
-                                content: Text("PDF Saved in Downloads!"),
-                              )
-                          );
-                        },
-                        child: const Text('PDF')
-                      ),
-                      const Text('or'),
-                      TextButton(
-                        onPressed: () async {
-                          await saveExcel(_schedules, selectedAcademicYearID);
-                          ScaffoldMessenger.of(context).clearSnackBars();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                duration: Duration(seconds: 2),
-                                content: Text("Excel Saved in Downloads!"),
-                              )
-                          );
-                        },
-                        child: const Text('Excel')
+                      ElevatedButton(
+                        onPressed: showDownloadDialog,
+                        child: const Text('Download')
                       )
                     ],
                   ),
