@@ -38,7 +38,9 @@ class _FacultyScheduleHistoryViewState extends State<FacultyScheduleHistoryView>
     isAuthenticated('faculty', context);
     items.clear();
     AcademicYear().getAcademicYears().then((value){
-      selectedAcademicYearID = value[0].id!;
+      setState(() {
+        selectedAcademicYearID = value[0].id!;
+      });
       fetchSchedules();
       items = value.map((academicYear) {
         return DropdownMenuItem(
@@ -46,7 +48,6 @@ class _FacultyScheduleHistoryViewState extends State<FacultyScheduleHistoryView>
           child: Text('${academicYear.yearStart} - ${academicYear.yearEnd} (${academicYear.semester})'),
         );
       }).toList();
-      fetchSchedules();
     });
   }
   @override
